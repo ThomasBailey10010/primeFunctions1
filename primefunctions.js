@@ -26,42 +26,42 @@ function primeGen(pass) {
 }
 
 // Test 1
-// primeGen(100);
+// console.log(primeGen(100));
 
+
+// Changed cumulativeSum to reflect grade comments
 function cumulativeSum(list) {
-  let sum = 0;
-  for (let i = 0; i < list.length; i++) {
-    sum += list[i];
-    // console.log(sum);
+  // Set current sum to elemet 0
+  let sum = list[0];
+  // Copy list
+  const sumList = list;
+  // For all elements starting at second element
+  for (let i = 1; i < sumList.length; i++) {
+    // Increment current element by running sum
+    sumList[i] += sum;
+    // Update running sum
+    sum = sumList[i];
   }
-  return sum;
+  return sumList;
 }
 
 // Test 2
-// cumulativeSum([1, 2, 3, 4]);
+// console.log(cumulativeSum([1, 2, 3, 4]));
 
 function maxPrimeSum(pass) {
   let size = 0;
   let largest = 0;
   let sum = 0;
-  // Create list of primes
   const primeList = primeGen(pass);
-  // outer loop for checking all possible combinations
   for (let i = 0; i < primeList.length; i++) {
     sum = 0;
-    // inner loop for checking current iteration
-    for (let k = 0; i < primeList.length; k++) {
+    for (let k = i; k < primeList.length; k++) {
       sum += primeList[k];
-      // Do not exceed size of number
       if (sum > pass) {
-        // While loop would be more graceful ?
         break;
       }
-      // Check if prime and larger than current largest and are there more additions
       if (primeCheck(sum) && size < (k - i) && largest < sum) {
-        // Update largest
         largest = sum;
-        // Update longest
         size = (k - i);
       }
     }
